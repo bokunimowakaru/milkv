@@ -53,6 +53,8 @@ fi
 echo -n "out" > /sys/class/gpio/gpio${LED_GPIO}/direction
 echo -n "0" > /sys/class/gpio/gpio${LED_GPIO}/value
 
+trap "exit" SIGINT                      # Ctrl-Cでプログラムを終了
+
 # メイン処理部 #################################################################
 echo "HTTP Server Started http://"${IP}":"${PORT}"/"    # アクセス用URL表示
 while true; do                                          # HTTP待ち受け
