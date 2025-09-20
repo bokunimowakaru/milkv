@@ -48,7 +48,7 @@ sleep 3
 if [ -d /sys/class/gpio/gpio${LED_GPIO} ]; then
     echo "GPIO"${LED_GPIO} "already exported"
 else
-    echo -n "440" > /sys/class/gpio/export
+    echo -n "${LED_GPIO}" > /sys/class/gpio/export
 fi
 echo -n "out" > /sys/class/gpio/gpio${LED_GPIO}/direction
 echo -n "0" > /sys/class/gpio/gpio${LED_GPIO}/value
