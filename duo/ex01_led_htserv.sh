@@ -14,6 +14,7 @@
 #   HTTP Server Started http://192.168.42.1:8080/
 # 3.LEDを点灯する場合は、他のターミナルから下記のコマンドを入力します
 #   [root@milkv-duo]~# curl http://192.168.42.1:8080/?L=1
+#   制御できないときは、何度か試してください。
 # 4.LEDを消灯する場合は下記です。
 #   [root@milkv-duo]~# curl http://192.168.42.1:8080/?L=0
 # 5.プログラムを停止するには[Ctrl]+[C]を押してください
@@ -56,7 +57,7 @@ echo -n "0" > /sys/class/gpio/gpio${LED_GPIO}/value
 echo "HTTP Server Started http://"${IP}":"${PORT}"/"    # アクセス用URL表示
 while true; do                                          # HTTP待ち受け
     echo -e $HTML\
-    |nc -lw1 -v -s ${IP} -p 8080\
+    |nc -lw1 -v -s ${IP} -p ${PORT}\
     |while read tcp; do                                 # 受信データをtcpに代入
         DATE=`date "+%Y/%m/%d %R"`                      # 時刻を取得
         HTTP=`echo -E ${tcp}|cut -d"=" -f1`             # HTTPコマンドを抽出
