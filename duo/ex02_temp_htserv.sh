@@ -29,7 +29,7 @@
 
 IP='192.168.42.1'                       # 本機のIPアドレス
 PORT=8080                               # 待ち受けポート番号
-temp_offset=25                          # CPUの温度上昇値
+temp_offset=18                          # CPUの温度上昇値
 sensor="/sys/devices/virtual/thermal/thermal_zone0/temp" # CPUの温度センサ
 
 URL="http://"${IP}":"${PORT}
@@ -79,7 +79,8 @@ payload_rx (){                          # HTTPリクエスト受信処理(レス
 # メイン処理部 #################################################################
 while true; do                                              # 繰り返し処理
     echo "HTTP Server Started http://"${IP}":"${PORT}"/"    # アクセス用URL表示
-    nc -lw1 -v -s ${IP} -p ${PORT} < payload_tx| payload_rx > payload_tx
+    sleep 0.1
+    nc -l -v -s ${IP} -p ${PORT} < payload_tx| payload_rx > payload_tx
 done                                                        # 繰り返しここまで
 
 ################################################################################

@@ -56,8 +56,9 @@ echo -n "0" > /sys/class/gpio/gpio${LED_GPIO}/value
 # メイン処理部 #################################################################
 echo "HTTP Server Started http://"${IP}":"${PORT}"/"    # アクセス用URL表示
 while true; do                                          # HTTP待ち受け
+    sleep 0.1
     echo -e $HTML\
-    |nc -lw1 -v -s ${IP} -p ${PORT}\
+    |nc -l -v -s ${IP} -p ${PORT}\
     |while read tcp; do                                 # 受信データをtcpに代入
         DATE=`date "+%Y/%m/%d %R"`                      # 時刻を取得
         HTTP=`echo -E ${tcp}|cut -d"=" -f1`             # HTTPコマンドを抽出
