@@ -5,18 +5,18 @@
 ################################################################################
 # テスト方法
 # 1.プログラムを開始するには下記のコマンドを入力します
-#   [root@milkv-duo]~# bash ./ex02_temp_htserv.sh
+#       [root@milkv-duo]~# bash ./ex02_temp_htserv.sh
 # 2.待ち受けIPアドレスとポート番号を確認してください。
 #   初期値はIPアドレス＝192.168.42.1で、ポート番号＝8080です。
-#   HTTP Server Started http://192.168.42.1:8080/
+#       HTTP Server Started http://192.168.42.1:8080/
 # 3.温度値を取得したいときは、他のターミナルから下記のコマンドを入力します
 #   [root@milkv-duo]~# curl http://192.168.42.1:8080/val.txt
 #   温度値の取得に成功すると以下のように表示されます。
-#      Temperature = 23.9
+#       Temperature = 23.9
 #   取得できないときは、何度か試してください。
 # 4.プログラムを停止するには[Ctrl]+[C]を押してください
 #   止まらないときは下記を実行してください(他のbash処理も止まります)
-#   [root@milkv-duo]~# kill `pidof bash`
+#       [root@milkv-duo]~# kill `pidof bash`
 ################################################################################
 # 応用①：インターネット・ブラウザで表示
 # 本機にUSB接続したPCのインターネットブラウザからアクセスできます。
@@ -38,14 +38,13 @@ sensor="/sys/devices/virtual/thermal/thermal_zone0/temp" # CPUの温度センサ
 URL="http://"${IP}":"${PORT}
 HTML="HTTP/1.0 200 OK\nContent-Type: text/html\nConnection: close\n\n<html>\n\
     <head>\n<title>Thermometer</title>\n\
-    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\
-    \n</head>\n<body>\n<h3>Thermometer</h3>\n\
+    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\n\
+    </head>\n<body>\n<h3>Thermometer</h3>\n\
     <p>Temperature = #</p>\n\
-    </html>\n\n"
+    </body></html>\n\n"                                     # HTTP+HTML応答電文
 TEXT="HTTP/1.0 200 OK\nContent-Type: text/plain \nConnection: close\n\n\
-    Temperature = #\n\
-    \n"
-error="HTTP/1.0 404 Not Found\n\n"
+    Temperature = #\n"                                      # HTTP+TXT応答電文
+error="HTTP/1.0 404 Not Found\n\n"                          # Error時応答電文
 
 mkfifo payload_tx                       # HTTPデータ送信用のパイプを作成
 trap "rm -f payload_tx; exit" SIGINT    # Ctrl-Cでパイプ切断し、プログラムを終了

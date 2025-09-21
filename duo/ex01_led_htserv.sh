@@ -8,18 +8,18 @@
 ################################################################################
 # テスト方法
 # 1.プログラムを開始するには下記のコマンドを入力します
-#   [root@milkv-duo]~# bash ./ex01_led_htserv.sh
+#       [root@milkv-duo]~# bash ./ex01_led_htserv.sh
 # 2.待ち受けIPアドレスとポート番号を確認してください。
 #   初期値はIPアドレス＝192.168.42.1で、ポート番号＝8080です。
-#   HTTP Server Started http://192.168.42.1:8080/
+#       HTTP Server Started http://192.168.42.1:8080/
 # 3.LEDを点灯する場合は、他のターミナルから下記のコマンドを入力します
-#   [root@milkv-duo]~# curl http://192.168.42.1:8080/?L=1
+#       [root@milkv-duo]~# curl http://192.168.42.1:8080/?L=1
 #   制御できないときは、何度か試してください。
 # 4.LEDを消灯する場合は下記です。
-#   [root@milkv-duo]~# curl http://192.168.42.1:8080/?L=0
+#       [root@milkv-duo]~# curl http://192.168.42.1:8080/?L=0
 # 5.プログラムを停止するには[Ctrl]+[C]を押してください
 #   止まらないときは下記を実行してください(他のbash処理も止まります)
-#   [root@milkv-duo]~# kill `pidof bash`
+#       [root@milkv-duo]~# kill `pidof bash`
 ################################################################################
 # 応用①：インターネット・ブラウザから制御
 # 本機にUSB接続したPCのインターネットブラウザから制御できます。
@@ -42,7 +42,7 @@ HTML="HTTP/1.0 200 OK\nContent-Type: text/html\nConnection: close\n\n<html>\n\
     </head>\n<body>\n<h3>LED制御</h3>\n\
     <form method=\"GET\" action=\"http://"${IP}":"${PORT}"/\">\n\
     Level = <input type=\"text\" size=\"1\" name=\"L\" >(0~1)\n\
-    <input type=\"submit\" value=\"送信\">\n</form>\n</html>\n\n\
+    <input type=\"submit\" value=\"送信\">\n</form>\n</body>\n</html>\n\n\
 "                                       # HTTP + HTMLコンテンツ
 
 pid=`pidof S99user`
