@@ -11,7 +11,10 @@ IoT Example Codes for Milk-V Duo
 * ex01_led_htserv; LED controller with HTTP Server for Milk-V Duo  
   It controls the LED on and off via HTTP.
 * ex02_temp_htserv; IoT Thermometer with HTTP Server for Milk-V Duo  
-  It gets the temperature value of Milk-V Duo via HTTP
+  It gets the temperature value of Milk-V Duo via HTTP.
+* ex03_temp_tx; IoT Thermometer with Transmitter for Milk-V Duo  
+  It sends the temperature value of Milk-V Duo via CSVxUDP and HTTP.  
+  [https://git.bokunimo.com/udp/](https://git.bokunimo.com/udp/)  
 
 --------------------------------------------------------------------------------
 
