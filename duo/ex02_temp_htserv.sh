@@ -3,9 +3,6 @@
 # HTTP サーバ + IoT温度計 for Milk-V Duo
 #                                          Copyright (c) 2017-2025 Wataru KUNINO
 ################################################################################
-# GPIOを変更する場合は下記を参照ください
-#   https://milkv.io/docs/duo/getting-started/duo#gpio-pinout
-################################################################################
 # テスト方法
 # 1.プログラムを開始するには下記のコマンドを入力します
 #   [root@milkv-duo]~# bash ./ex02_temp_htserv.sh
