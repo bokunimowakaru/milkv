@@ -5,19 +5,39 @@
 # HTTP サーバ + LED制御 for Milk-V Duo
 #                                          Copyright (c) 2022-2025 Wataru KUNINO
 ################################################################################
-# GPIOを変更する場合は下記を参照ください
-#   https://milkv.io/docs/duo/getting-started/duo#gpio-pinout
+# テスト方法
+# 1.プログラムを開始するには下記のコマンドを入力します
+#   [root@milkv-duo]~# python ex01_led_htserv.py
+# 2.待ち受けIPアドレスとポート番号を確認してください。
+#   初期値はIPアドレス＝192.168.42.1で、ポート番号＝8080です。
+#   HTTP Server Started http://192.168.42.1:8080/
+# 3.LEDを点灯する場合は、他のターミナルから下記のコマンドを入力します
+#   [root@milkv-duo]~# curl http://192.168.42.1:8080/?L=1
+#   制御できないときは、何度か試してください。
+# 4.LEDを消灯する場合は下記です。
+#   [root@milkv-duo]~# curl http://192.168.42.1:8080/?L=0
+# 5.プログラムを停止するには[Ctrl]+[C]を押してください
+################################################################################
+# 応用①：インターネット・ブラウザから制御
+# 本機にUSB接続したPCのインターネットブラウザから制御できます。
+# Microsoft Edgeのアドレスバーに下記を入力してください。
+#      http://192.168.42.1:8080/
+# Level = の欄に0または1を入力し、[送信]ボタンを押すとLEDを制御できます。
+################################################################################
+# 応用②：リモートLED制御
+# Milk-V Duo にイーサネット端子を接続し、「IP='192.168.42.1'」をイーサネット用の
+# IPアドレスに変更すると、LAN内の他のPCからLEDの制御ができるようになります
 ################################################################################
 
 IP='192.168.42.1'                       # 本機のIPアドレス
 PORT=8080                               # 待ち受けポート番号
 
-import socket                                               # ソケットの組み込み
+import socket                           # ソケットの組み込み
 from subprocess import run
 
 # from pinpong.board import Board,Pin
-# Board("MILKV-DUO").begin()                # Initialize, select the board type
-# led = Pin(Pin.C24, Pin.OUT)               # The pin is initialized as output.
+# Board("MILKV-DUO").begin()            # Initialize, select the board type
+# led = Pin(Pin.C24, Pin.OUT)           # The pin is initialized as output.
 
 HTML="HTTP/1.0 200 OK\nContent-Type: text/html\nConnection: close\n\n<html>\n\
     <head>\n<title>LED制御</title>\n\
@@ -33,7 +53,8 @@ sock0 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # TCP用ソケット
 sock0.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ポート再利用の許可
 sock0.bind(('', port))                                      # ソケットに接続
 sock0.listen(1)                                             # 同時接続数=1
-print('Listening TCP port', port, '...')                    # ポート番号表示
+print("HTTP Server Started http://"+IP+":"+str(PORT)+"/")   # アクセス用URL表示
+
 while True:
     (sock, sock_from) = sock0.accept()                      # アクセス待ち
     print(sock_from[0], sock_from[1])                       # アクセス元の表示
@@ -54,7 +75,6 @@ while True:
             break
     if val>=0:
         run(["bash","led_ctrl.sh",str(val)])
-
 
 ################################################################################
 # 参考文献
