@@ -2,7 +2,11 @@
 # coding: utf-8
 
 ################################################################################
+# IoT Thermometer with HTTP Server for Milk-V Duo
+# This program gets the temperature value of Milk-V Duo via HTTP.
+# ------------------------------------------------------------------------------
 # HTTP サーバ + IoT温度計 for Milk-V Duo
+# HTTPで Milk-V Duo の温度値を取得するプログラムです。
 #                                          Copyright (c) 2022-2025 Wataru KUNINO
 ################################################################################
 # テスト方法

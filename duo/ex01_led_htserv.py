@@ -2,7 +2,11 @@
 # coding: utf-8
 
 ################################################################################
+# LED controller with HTTP Server for Milk-V Duo
+# This program for Milk-V Duo controls the LED on and off via HTTP.
+# ------------------------------------------------------------------------------
 # HTTP サーバ + LED制御 for Milk-V Duo
+# LEDの点灯または消灯をHTTPで制御する Milk-V Duo 用のサンプルプログラムです。
 #                                          Copyright (c) 2022-2025 Wataru KUNINO
 ################################################################################
 # テスト方法
