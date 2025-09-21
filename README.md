@@ -14,7 +14,7 @@ IoT Example Codes for Milk-V Duo
   It gets the temperature value of Milk-V Duo via HTTP.
 * ex03_temp_tx; IoT Thermometer with Transmitter for Milk-V Duo  
   It sends the temperature value of Milk-V Duo via CSVxUDP and HTTP.  
-  [https://git.bokunimo.com/udp/](https://git.bokunimo.com/udp/)  
+  CSVxUDP (CSV Cross UDP): [https://git.bokunimo.com/udp/](https://git.bokunimo.com/udp/)  
 
 --------------------------------------------------------------------------------
 
