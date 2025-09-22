@@ -1,14 +1,16 @@
 #!/bin/bash
 ################################################################################
-# IoT Thermometer with Transmitter for Milk-V Duo
+# IoT Thermometer with CSVxUDP Transmitter for Milk-V Duo
 # This program sends the temperature value of Milk-V Duo via CSVxUDP and HTTP.
 # ------------------------------------------------------------------------------
 # IoT温度計 送信機 for Milk-V Duo
 # Milk-V Duo の温度値をCSVxUDP方式とHTTP方式で送信するプログラムです。
+# 温度値は誤差の多い目安値です。通信実験以外の目的では使用できません。
 #                                          Copyright (c) 2016-2025 Wataru KUNINO
 ################################################################################
 # テスト方法
 # 1. あらかじめPC上でudp_logger.pyを実行しておきます。
+#       PS C:\Users\watt\milkv\duo> python udp_logger.py
 # 2. 下記のコマンドで本プログラムを実行します。
 #       [root@milkv-duo]~/milkv/duo# bash ex03_temp_tx.sh
 # 3. PC上のudp_logger.pyの実行画面に以下のような結果が表示されます。
@@ -29,14 +31,14 @@
 # 温度計の設定
 temp_offset=18                                          # CPUの温度上昇値(要調整)
 interval=30                                             # 測定間隔(1日3000件以下)
-sensor="/sys/devices/virtual/thermal/thermal_zone0/temp" # CPUの温度センサ
+sensor="/sys/class/thermal/thermal_zone0/temp"          # CPUの温度センサ
 
 # CSVxUDP送信の設定
 udp_ip="192.168.42.255"                                 # CSVxUDP宛先IPアドレス
 udp_port=1024                                           # CSVxUDP宛先ポート番号
 device="temp0_5"                                        # CSVxUDP用デバイス名
 
-# Ambient(https://ambidata.io/)へ Raspberry Piの温度データを送信する設定
+# Ambient(https://ambidata.io/)へ HTTPで送信する設定
 AmbientChannelId=0                                      # チャネルID(Ambientで取得)
 AmbientWriteKey="0123456789abcdef"                      # ライトキー(16桁・同上)
 AmbientHost="54.65.206.59"                              # 送信先アドレス(変更不要)

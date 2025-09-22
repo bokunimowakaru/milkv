@@ -7,6 +7,7 @@
 # ------------------------------------------------------------------------------
 # HTTP サーバ + IoT温度計 for Milk-V Duo
 # HTTPで Milk-V Duo の温度値を取得するプログラムです。
+# 温度値は誤差の多い目安値です。通信実験以外の目的では使用できません。
 #                                          Copyright (c) 2022-2025 Wataru KUNINO
 ################################################################################
 # テスト方法
@@ -46,7 +47,7 @@ HTML="HTTP/1.0 200 OK\nContent-Type: text/html\nConnection: close\n\n<html>\n\
 TEXT="HTTP/1.0 200 OK\nContent-Type: text/plain \nConnection: close\n\n\
     Temperature = #\n"                                      # HTTP+TXT応答電文
 error="HTTP/1.0 404 Not Found\n\n"                          # Error時応答電文
-sensor="/sys/devices/virtual/thermal/thermal_zone0/temp"    # CPUの温度センサ
+sensor="/sys/class/thermal/thermal_zone0/temp"              # CPUの温度センサ
 
 def temp():
     fp = open(sensor)                                       # 温度ファイルを開く
